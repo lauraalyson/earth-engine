@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import { Fragment } from 'react/cjs/react.production.min';
 import './App.css';
 

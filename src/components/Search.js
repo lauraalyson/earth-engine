@@ -39,15 +39,12 @@ export default class Search extends Component {
 			humidity: '',
 			wind: '',
 			main: '',
-			day: false
-		}
-
-		this.weather = {
+			day: false,
 			rainy: false,
 			cloudy: false,
 			sunny: false,
 			hazey: false,
-			snowy: false
+			snowy: false			
 		}
 	}
 
@@ -65,7 +62,7 @@ export default class Search extends Component {
 			console.log('this is nightime')
 		}
 	}
-		
+
 	handleSubmit = (event) => {
 		event.preventDefault()
 		const city = this.state.city
@@ -89,13 +86,13 @@ export default class Search extends Component {
 			)
 			.then(() => {
 				if (this.state.main === 'Clear') {
-					console.log('the weather is clear')
+					this.setState({ sunny: true, cloudy: false, hazy: false, rainy: false })
 				} else if (this.state.main === 'Clouds') {
-					console.log('the weather is cloudy')
+					this.setState({ cloudy: true, sunny: false, hazy: false, rainy: false })
 				} else if (this.state.main === 'Haze') {
-					console.log('the weather is hazey')
+					this.setState({ hazy: true, cloudy: false, sunny: false, hazy: false })
 				} else {
-					console.log('the weather is rainy')
+					this.setState({ rainy: true, hazy: false, cloudy: false, sunny: false })
 				}
 			})
 			.then(() => this.handleTime())
@@ -105,7 +102,8 @@ export default class Search extends Component {
 
 
 	render() {
-		const { location, description, feelsLike, temp, tempHigh, tempLow, humidity, wind, placeholder, main, day } = this.state
+		const { location, description, feelsLike, temp, tempHigh, tempLow, humidity, wind, placeholder, main, rainy, cloudy, sunny, hazey } = this.state
+
 		return (
 			<Fragment>
 				<Form onSubmit={this.handleSubmit}>
@@ -126,8 +124,8 @@ export default class Search extends Component {
 				</Form>
 
 				<div>
-					<p>Current Date: {this.state.currentDate}</p>
-					<p>Current Hour: {this.state.currentHour}</p>
+					{/* <p>Current Date: {this.state.currentDate}</p>
+					<p>Current Hour: {this.state.currentHour}</p> */}
 					<h1>Location: {location}</h1>
 					<p>Description: {description}</p>
 					<p>Feels Like: {feelsLike}</p>
@@ -142,16 +140,16 @@ export default class Search extends Component {
 				<br />
 
 				<div
-					style={{
-						display: 'flex',
-						maxWidth: '100vw',
-						width: '100%',
-					}}>
-					{day ? <Rainy /> : <RainyNight />}
-					{day ? <Cloudy /> : <CloudyNight />}
-					{day ? <Sunny /> : <Moon />}
-					{day ? <Hazey /> : <HazeyNight />}
-					<Snowy />
+				style={{
+					display: 'flex',
+					maxWidth: '100vw',
+					width: '100%',
+				}}>
+					<div>{ rainy ? <Rainy /> : '' }</div>
+					<div>{ cloudy ? <Cloudy /> : '' }</div>
+					<div>{ sunny ? <Sunny /> : '' }</div>
+					<div>{ hazey ? <Hazey /> : '' }</div>
+					{/* <div><Snowy /></div> */}
 				</div>
 			</Fragment>
 		)

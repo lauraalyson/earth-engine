@@ -1,15 +1,26 @@
 import { Fragment } from 'react/cjs/react.production.min'
-import './App.css'
-// import { Route } from 'react-router-dom'
 import Search from './components/Search'
+import './App.css'
 
 function App() {
   return (
-		<div className='App'>
+		<div 
+		className='App'
+		style={{ 
+			backgroundColor: '',
+			padding: '5em',
+			position: 'absolute',
+			top: '0',
+			bottom: '0',
+			height: '100vh',
+			overflow: 'hidden'
+		}}>
 			<Fragment>
-				<h1>Earth Engine</h1>
-				<Search />
-				{/* <Route path='/' render={() => (<Search />)}/> */}
+				<body>
+					<h1>Earth Engine</h1>
+					<Search />					
+				</body>
+
 			</Fragment>
 		</div>
 	)

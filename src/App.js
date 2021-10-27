@@ -2,30 +2,31 @@ import { Fragment, Component } from 'react/cjs/react.production.min'
 import Search from './components/Search'
 import './App.css'
 
-class App extends Component {
-	constructor(props) {
-		super(props)
+const white = '#FFFFFF'
+const black = '#000000'
 
-		this.state = {
-			bgColor: '',
-			txtColor: '',
-		}
+class App extends Component {
+  constructor(props){
+    super(props)
+    this.state = { color: white, text: black }
+    // this.changeColor = this.changeColor.bind(this)
 	}
 
 	handleColor = (e) => {
-		this.setState({ bgColor: 'black', txtColor: 'white' })
-		console.log('this is clicked')
+        const newColor = this.state.color == white ? black : white
+		const newerColor = this.state.text == white ? black : white
+		this.setState({ color: newColor, text: newerColor })
 	}
 
 	render() {
-		const { bgColor, txtColor } = this.state
+		const { color, text } = this.state
 
 		return (
 			<div
 				className='App'
 				style={{
-					backgroundColor: `${bgColor}`,
-					color: `${txtColor}`,
+					backgroundColor: `${color}`,
+					color: `${text}`,
 					padding: '3vw',
 					position: 'absolute',
 					top: '0',

@@ -8,12 +8,11 @@ function App() {
 		className='App'
 		style={{ 
 			backgroundColor: '',
-			padding: '5em',
+			padding: '3vw',
 			position: 'absolute',
 			top: '0',
 			bottom: '0',
-			height: '100vh',
-			overflow: 'hidden'
+			height: '100vh'
 		}}>
 			<Fragment>
 				<body>

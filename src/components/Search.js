@@ -102,10 +102,13 @@ export default class Search extends Component {
 					<p>Wind: {wind}</p>
 					<p>Main: {main}</p>					
 				</div>
-
+				<br />
+			<div style={{ display: 'flex', maxWidth: '100vw' }}>
 				<Sunny />
 				<Rainy />
 				<Cloudy />
+			</div>
+				
 			</Fragment>
 		)
 	}

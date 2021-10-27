@@ -46,15 +46,15 @@ export default class Search extends Component {
 					placeholder: 'city',
 					location: res.data.name,
 					description: res.data.weather[0].description,
-					feelsLike: res.data.main.feels_like,
+					feelsLike: res.data.main.feels_like + 'F',
 					main: res.data.weather[0].main,
-					temp: res.data.main.temp,
-					tempHigh: res.data.main.temp_max,
-					tempLow: res.data.main.temp_min,
-					humidity: res.data.main.humidity,
-					wind: res.data.wind.speed + 'mph'
+					temp: res.data.main.temp + 'F',
+					tempHigh: res.data.main.temp_max + 'F',
+					tempLow: res.data.main.temp_min + 'F',
+					humidity: res.data.main.humidity + '%',
+					wind: res.data.wind.speed + 'mph',
 				})
-				)
+			)
 			.then(() => {
 				if (this.state.main === 'Clear') {
 					console.log('the weather is clear')
@@ -92,7 +92,7 @@ export default class Search extends Component {
 					</Button>
 				</Form>
 				<div>
-					<h1>{location}</h1>
+					<h1>Location: {location}</h1>
 					<p>Description: {description}</p>
 					<p>Feels Like: {feelsLike}</p>
 					<p>Temp: {temp}</p>
@@ -102,9 +102,7 @@ export default class Search extends Component {
 					<p>Wind: {wind}</p>
 					<p>Main: {main}</p>					
 				</div>
-				<div>
-					({this.state.main} === 'Clear' ) ? <div><Sunny /></div> : <div><Rainy /></div>
-				</div>
+
 				<Sunny />
 				<Rainy />
 				<Cloudy />

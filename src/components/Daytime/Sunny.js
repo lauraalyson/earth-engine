@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import './../App.css'
+import './daystyles.css'
 
 export default class Sunny extends Component {
 	constructor(props) {

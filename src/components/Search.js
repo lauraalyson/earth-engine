@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from 'react'
-import { getWeather } from './../api/weather-api'
+import { getWeather } from './../api/apiConfig'
+
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+
 import Sunny from './Daytime/Sunny'
 import Rainy from './Daytime/Rainy'
 import Cloudy from './Daytime/Cloudy'
@@ -11,6 +13,7 @@ import Moon from './Nightime/Moon'
 import CloudyNight from './Nightime/CloudyNight'
 import HazeyNight from './Nightime/HazeyNight'
 import Snowy from './Daytime/Snowy'
+import Earth from './Earth'
 
 export default class Search extends Component {
 	constructor(props) {
@@ -28,7 +31,7 @@ export default class Search extends Component {
 		this.state = {
 			currentHour: hour,
 			currentDate: date,
-			placeholder: 'ex: nashville',
+			placeholder: 'Search city...',
 			city: '',
 			location: '',
 			description: '',
@@ -55,18 +58,19 @@ export default class Search extends Component {
 	}
 
 	handleTime = () => {
-		if ( this.state.currentHour > 15 < 6 ) {
+		if ( (this.state.currentHour > 15 ) || (this.state.currentHour < 6) ) {
+			console.log('this is nightime')
+			this.setState({ day: false })
+		} else {
 			console.log('this is daytime')
 			this.setState({ day: true })
-		} else {
-			console.log('this is nightime')
 		}
 	}
 
 	handleSubmit = (event) => {
 		event.preventDefault()
 		const city = this.state.city
-		this.setState({ placeholder: 'ex: nashville' })
+		this.setState({ placeholder: 'Search city...' })
 
 
 		getWeather(city)
@@ -102,13 +106,14 @@ export default class Search extends Component {
 
 
 	render() {
-		const { location, description, feelsLike, temp, tempHigh, tempLow, humidity, wind, placeholder, main, rainy, cloudy, sunny, hazey } = this.state
+		const { location, description, feelsLike, temp, tempHigh, tempLow, humidity, wind, placeholder, main, rainy, cloudy, sunny, hazey, day } = this.state
 
 		return (
 			<Fragment>
-				<Form onSubmit={this.handleSubmit}>
+
+				<Form className='search-bar' onSubmit={this.handleSubmit}>
 					<Form.Group controlId='city'>
-						<Form.Label>City</Form.Label>
+						{/* <Form.Label>City</Form.Label> */}
 						<br />
 						<Form.Control
 							required
@@ -124,32 +129,28 @@ export default class Search extends Component {
 				</Form>
 
 				<div>
-					{/* <p>Current Date: {this.state.currentDate}</p>
-					<p>Current Hour: {this.state.currentHour}</p> */}
-					<h1>Location: {location}</h1>
-					<p>Description: {description}</p>
-					<p>Feels Like: {feelsLike}</p>
-					<p>Temp: {temp}</p>
-					<p>High: {tempHigh}</p>
-					<p>Low: {tempLow}</p>
-					<p>Humidity: {humidity}</p>
-					<p>Wind: {wind}</p>
-					<p>Main: {main}</p>
+					<Earth 
+					 location={location}
+					 description={description}
+					 feelsLike={feelsLike}
+					 temp={temp}
+					 high={tempHigh}
+					 low={tempLow}
+					 humidity={humidity}
+					 wind={wind}
+					 main={main}
+					/>
+					<p>Current Date: {this.state.currentDate}</p>
+					<p>Current Hour: {this.state.currentHour}</p>
 				</div>
 
 				<br />
 
-				<div
-				style={{
-					display: 'flex',
-					maxWidth: '100vw',
-					width: '100%',
-				}}>
-					<div>{ rainy ? <Rainy /> : '' }</div>
-					<div>{ cloudy ? <Cloudy /> : '' }</div>
-					<div>{ sunny ? <Sunny /> : '' }</div>
-					<div>{ hazey ? <Hazey /> : '' }</div>
-					{/* <div><Snowy /></div> */}
+				<div>
+					<div>{ rainy ? ( day ? <Rainy /> : <RainyNight /> ) : '' }</div>
+					<div>{ cloudy  ? ( day ? <Cloudy /> : <CloudyNight /> ) : '' }</div>
+					<div>{ sunny ? ( day ? <Sunny /> : <Sunny /> ) : '' }</div>
+					<div>{ hazey ? ( day ? <Hazey /> : <HazeyNight />) : '' }</div>
 				</div>
 			</Fragment>
 		)

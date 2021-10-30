@@ -15,6 +15,16 @@ body, .App, html, button, input {
 	text-transform: uppercase;
 }
 
+.search-bar {
+}
+.search-bar input{
+	width: 92%;
+	border-radius: 200px;
+	border: 1px solid transparent;
+	background: #d0e0f1a5;
+	padding: 5px;
+}
+
 .temp {
 	width:130px;
 	height:130px;
